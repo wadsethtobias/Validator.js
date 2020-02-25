@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form" data-validate="form">
+        <p data-error></p>
+        <label for="username">Username</label>
+        <input autocomplete="off" type="text" class="username" id="username" placeholder="Username" data-validate="username">
+        <p data-error="username"></p>
+        <label for="email">E-Mail</label>
+        <input autocomplete="off" type="text" class="email" id="email" placeholder="email" data-validate="email">
+        <p data-error="email"></p>
+    </form>
+
+    <script src="FormValidator.js"></script>
+    
+</body>
+</html>
