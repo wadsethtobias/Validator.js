@@ -7,16 +7,19 @@
 </head>
 <body>
     <form id="form" data-validate="form">
-        <p data-error></p>
+        <p data-error="*"></p>
         <label for="username">Username</label>
         <input autocomplete="off" type="text" class="username" id="username" placeholder="Username" data-validate="username">
         <p data-error="username"></p>
         <label for="email">E-Mail</label>
-        <input autocomplete="off" type="text" class="email" id="email" placeholder="email" data-validate="email">
+        <input autocomplete="off" type="text" class="email" id="email" placeholder="E-Mail" data-validate="email">
         <p data-error="email"></p>
+        <label for="password">Password</label>
+        <input autocomplete="off" type="text" class="password" id="password" placeholder="Password" data-validate="password">
+        <p data-error="password"></p>
     </form>
 
-    <script src="FormValidator.js"></script>
+    <script src="Validator.js"></script>
     
 </body>
 </html>
