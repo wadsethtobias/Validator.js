@@ -74,9 +74,15 @@ const validate = (obj) => {
         }
     };
 
-    let parameter = obj;
+    const argument = mergeDeep(DEFAULT, obj);
 
-    const argument = mergeDeep(DEFAULT, parameter);
+    if (argument.username.minLength >= argument.username.maxLength) {
+        throw new RangeError('username.minLength is equal to or greater than username.maxLength');
+    }
+
+    if (!(argument.password.include instanceof Array)) {
+        throw new TypeError('password.include is not an Array');
+    }
 
     const passwordParameters = (param) => {
         if (param === 'lowercase') {
@@ -171,16 +177,15 @@ const validate = (obj) => {
         });
     }
 
+    let styles = 'outline: 1px red solid; box-shadow: 0 0 10px 1px red;'
+
     form.addEventListener('input', () => {
         if (argument.errors.errors === 'show') {
             if (username) {
                 if (username.value.length < argument.username. minLength || username.value.length > argument.username.maxLength) {
                     errorEls.forEach(error => {
                         if (error.getAttribute('data-error') === 'username') {
-                            error.innerText = `Username has to be between ${argument.username.minLength} and ${argument.username.maxLength} characters long`;
-                        }
-                        if (error.getAttribute('data-error') === '*') {
-
+                            error.innerText = username.value.replace(/ /g, '') === '' ? '' : usernameError;
                         }
                     });
                 } else {
@@ -196,7 +201,7 @@ const validate = (obj) => {
                 if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value))) {
                     errorEls.forEach(error => {
                         if (error.getAttribute('data-error') === 'email') {
-                            error.innerText = `Please enter a valid E-Mail`;
+                            error.innerText = email.value.replace(/ /g, '') === '' ? '' : emailError;
                         }
                     });
                 } else {
@@ -216,7 +221,7 @@ const validate = (obj) => {
                 if (passwordCheck < argument.password.include.length) {
                     errorEls.forEach(error => {
                         if (error.getAttribute('data-error') === 'password') {
-                            error.innerHTML = passwordError();
+                            error.innerHTML =  password.value.replace(/ /g, '') === '' ? '' : passwordError();
                         }
                     });
                 } else {
@@ -251,7 +256,6 @@ const validate = (obj) => {
                     }
                     if (password) {
                         error.innerHTML += `<span data-error-block="password">${passwordError()}</span>`;
-                        console.log(passwordError());
                     }
                 }
             });
